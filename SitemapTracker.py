@@ -21,7 +21,8 @@ def getURLfromSitemaps(sitemapurl):
                 # listt.append(url.find('{http://www.sitemaps.org/schemas/sitemap/0.9}loc').text)
                 sitemap = []
                 sitemap.append(url.find('{http://www.sitemaps.org/schemas/sitemap/0.9}loc').text)
-                sitemap.append(url.find('{http://www.sitemaps.org/schemas/sitemap/0.9}lastmod').text)
+                # sitemap.append(url.find('{http://www.sitemaps.org/schemas/sitemap/0.9}lastmod').text)
+                sitemap.append(datetime.date.today())
                 # print("'"+url.find('{http://www.sitemaps.org/schemas/sitemap/0.9}loc').text+"',"+url.find('{http://www.sitemaps.org/schemas/sitemap/0.9}lastmod').text)
                 listt.append(sitemap)
             break
@@ -57,7 +58,6 @@ def compareAndRecord(sitemaps):
         if sitemap not in oldsitemap:
             insertsitemap.append(sitemap)
 
-
     for sitemap in insertsitemap:
         cur.execute('INSERT INTO "Alex".new_url VALUES(%s,%s);', (sitemap, datetime.date.today()))
         conn.commit()
@@ -75,7 +75,8 @@ if __name__ == '__main__':
     list1 = getURLfromSitemaps('https://www.docdoc.com/sitemap-document_translations.xml')
     list2 = getURLfromSitemaps('https://www.docdoc.com/sitemap-providers.xml')
     list3 = getURLfromSitemaps('https://www.docdoc.com/sitemap-providerIds.xml')
-    sitemaps = list1+list2+list3
+    list4 = getURLfromSitemaps('https://www.docdoc.com/missing-entities-from-dynamic-sitemap.xml')
+    sitemaps = list1+list2+list3+list4
 
     compareAndRecord(sitemaps)
 
