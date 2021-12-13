@@ -1,5 +1,5 @@
 isodate==0.6.0
-lxml==4.2.5
+lxml==4.6.5
 psycopg2==2.7.5
 pycparser==2.18
 pyOpenSSL==18.0.0
